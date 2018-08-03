@@ -1,0 +1,40 @@
+<form action="/users/{{user.id}}" method="post">
+
+<div class="container-fluid section header">
+    <div class="signup-content">
+        <h2 class="login-label text-center">Edit Profile</h2>
+
+        <div class="form-group text-center">
+
+        <input type="text" id="user-first-name" name="first" class="form-control" value="{{user.first}}" autocomplete="off">
+
+        <input type="text" id="user-last-name" name="last" class="form-control" value="{{user.last}}" autocomplete="off">
+
+        {{!-- <input type="password" id="user-password" name="password" class="form-control" placeholder="Password" autocomplete="off"> --}}
+
+        <input type="tel" id="user-tel" name="tel" class="form-control" value="{{user.tel}}" autocomplete="off">
+
+        <input type="text" id="user-school" name="school" class="form-control" value="{{user.school}}" autocomplete="off">
+
+        <div class='text-center' id='tutor-input'>
+    
+          <label for="">Would you like to be a tutor?</label>
+          <div>
+            <label for='istutor'>Yes</label><input type="radio" name="isTutor" value="true" id='istutor'>
+            <label for='isnottutor'>No</label> <input type="radio" name="isTutor" value="false" id='isnottutor'>
+          </div>
+        </div>
+
+        <p>Please enter a comma separated list of classes you can tutor</p>
+        <textarea rows="7" cols="60" name='class' id='user-classes' value="{{user.class}}">
+        {{user.class}}
+        </textarea>
+        
+        </div>
+        <div class="text-center">
+          <button type="submit" class="btn submit-button btn-primary">Update Profile</button>
+        </div>
+    </div>
+</div>
+
+</form>

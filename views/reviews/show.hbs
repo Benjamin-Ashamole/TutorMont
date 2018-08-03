@@ -1,0 +1,40 @@
+{{!-- <div class="row">
+    <div class="col">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb review-breadcrumb">
+                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Review</li>
+            </ol>
+        </nav>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <h5 class="text-muted">{{review.movieName}}</h5>
+        <h2>{{review.title}} <span class="badge badge-rating">{{review.rating}}</span></h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col">
+        <p>{{review.body}}</p>
+    </div>
+</div> --}}
+<div class='review-head'>
+    <div class='text-center review-header'>
+        <h2>Reviews</h2>
+    </div>
+    <div class='review-container container'>
+    {{#each reviews as |review|}}
+    <div class='review-body-container'>
+    <div class='review-body'>
+    <br>
+    <p>{{review.body}}</p>
+    <hr>
+    </div>
+    </div>
+    {{/each}}
+    </div>
+</div>
+</div>

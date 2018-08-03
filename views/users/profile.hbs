@@ -1,0 +1,38 @@
+<div class='parent-container'>
+<div class='container-profile'>
+  <div class='container-profile2'>
+    <div class='image-links image'>
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOUOUQt7cd1PoaYLJdl6B5S1zT9rsqVbXCOR1mfivtdKesVqjRMw" alt="" class='image-fluid' style='border-radius: 100px;'>
+    </div>
+    <div class='tutor-info'>
+      <h3 class="card-title">{{user.first}} {{user.last}}</h3>
+    <p class="card-text">{{user.school}}</p>
+    <p class='card-text'>{{user.email}}</p>
+    <p class='card-text'>{{user.tel}}</p>
+    <p class='card-text'>{{user.class}}</p>
+    <a href='/users/{{user._id}}/edit' class='btn btn-dark'>Edit Profile</a>
+    <a href='/users/{{user._id}}/reviews/' class='btn btn-dark'>Read {{user.first}}'s Reviews</a>
+     <div class="card-footer text-muted text-right">
+          <span class="points-span">{{user.points}} points </span>
+
+          <div class="btn-group btn-group-sm">
+                <form action="/users/{{user.id}}" method="post" class="inline-form">
+                    <input type="hidden" name="points" id="post-points" value="1">
+                    <button type="submit" class="upvote-button">+</button>
+                </form>
+
+                <form action="/users/{{user.id}}" method="post" class="inline-form">
+                    <input type="hidden" name="points" id="post-points" value="-1">
+                    <button type="submit" class="downvote-button">-</button>
+                </form>
+          </div>
+        </div>
+    
+    </div>
+    <div class='image-links'>
+      <a href='/users/{{user._id}}/reviews/new' class='btn btn-dark'>Write A Review</a>
+      <a href='#' class='btn btn-dark'>Send {{user.first}} a Message</a>
+  </div>
+  </div>
+</div>
+</div>

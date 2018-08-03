@@ -1,0 +1,31 @@
+ 
+ <div class="row text-center" style='margin-bottom:15px;'>
+    <div class="col">
+        <h1 class="page-title">Tutors</h1>
+    </div>
+</div>
+
+<div class='row text-center'>
+{{#each users as |user| }}
+<div class="col-sm-4 col-lg col-md-4">
+<div class='card-summary'>
+  <div class="card bg-dark text-white card-self">
+  <img class="card-img" src="http://centroauditivomerida.com/wp-content/uploads/2015/08/blue_gradient-wallpaper-1280x720.jpg" alt="Card image">
+  <div class="card-img-overlay text-left" >
+    <h3 class="card-title">{{user.first}} {{user.last}}</h3>
+    <p class="card-text">{{user.school}}</p>
+    <p class='card-text'>{{user.email}}</p>
+    <p class='card-text'>{{user.tel}}</p>
+    <p class='card-text'>{{user.class}}</p>
+  <div>
+    <a href='/users/{{user._id}}' class='btn btn-dark'>View Profile</a>
+  <a href='/users/reviews/new' class='btn btn-dark'>Write A Review</a>
+  <a href='#' class='btn btn-dark'>Send {{user.first}} a Message</a>
+</div>
+  </div>
+</div>
+</div>
+</div>
+{{/each}}
+
+</div>

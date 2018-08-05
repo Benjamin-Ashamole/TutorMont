@@ -15,6 +15,7 @@ const UserSchema = new Schema ({
      tel: { type: Number },
      class: { type: Array },
      points: { type: Number, default: 0 },
+     imageUrl: { type: String },
      createdAt: { type: Date, default: Date.now }
 });
 

@@ -3,10 +3,37 @@ const router = express.Router();
 const User = require('../models/user');
 const auth = require('./helpers/auth');
 const reviews = require('./reviews');
+const multer = require('multer');
+const Upload = require('s3-uploader');
+
+const storage = multer.diskStorage({
+  filename: function (req, file, cb) {
+      console.log(file)
+      let extArray = file.mimetype.split("/");
+      let ext = extArray[extArray.length - 1];
+      cb(null, Date.now() + "." + ext);
+  }
+});
+
+const upload = multer({ storage });
+
+let client = new Upload(process.env.S3_BUCKET, {
+  aws: {
+    path: 'images/',
+    region: process.env.S3_REGION,
+    acl: 'public-read',
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+  },
+  cleanup: {
+    original: true,
+    versions: true
+  },
+  versions: [{}]
+});
 
 /* GET users listing. */
 router.get('/', auth.requireLogin, (req, res, next) => {
-  //if (req.query.search) {
   const regex = new RegExp(escapeRegex(req.query.search), 'gi');
   if (req.query.search) {
   //User.find({ first: regex } 
@@ -35,7 +62,7 @@ router.get('/new', function(req, res, next) {
 });
 
 // Users create
-router.post('/', (req, res, next) => {
+router.post('/', upload.single('imageUrl'), (req, res, next) => {
   const user = new User(req.body);
   if (req.body.isTutor === true) {
     user.isTutor = true;
@@ -46,7 +73,6 @@ router.post('/', (req, res, next) => {
    }
 
    if (checkEmail(req.body.email) === false) {
-    //  console.error(err);
       return res.render('error')
    }
   user.save(function(err, user) {

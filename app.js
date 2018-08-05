@@ -1,3 +1,7 @@
+if (!process.env.PORT) {
+  require('dotenv').config();
+}
+
 const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
@@ -6,11 +10,13 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
+const Upload = require('s3-uploader');
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const reviewRouter = require('./routes/reviews');
 
 const app = express();
+require('dotenv').config();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -44,7 +50,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-const mongoURI = 'mongodb://hermestutor:Password1@ds147411.mlab.com:47411/hermestutor';
+const mongoURI = 'mongodb://' + process.env.MONGODB_ADMIN + ':' + process.env.MONGODB_PASSWORD + '@ds147411.mlab.com:47411/' + process.env.MONGODB_ADMIN;
 
 mongoose.connect(mongoURI)
 mongoose.Promise = global.Promise;

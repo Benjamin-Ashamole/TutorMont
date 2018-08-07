@@ -11,8 +11,15 @@ nav {
   background-color: #7daeca;
 }
 
+.review-show-page {
+  padding-bottom: 24px;
+}
+
 .bottom-nav {
   padding-top: 60px;
+}
+.signup {
+  padding-bottom: 27px;
 }
 .homepage {
   display: flex;
@@ -142,20 +149,35 @@ a {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  
-  
 }
-
-.review-body {
+.review-container {
   border: solid;
   border-color: #7daeca;
   border-radius: 10px;
+  padding-bottom: 30px;
+}
+.review-body {
+  /* border: solid;
+  border-color: #7daeca;
+  border-radius: 10px; */
   /* padding-bottom: 10px;
   padding-top: 10px;  */
 }
 
 .review-body-container {
   padding: 10px;
-  background-color: gray; 
-  border-radius: 10px; 
+  background-color: #f2f4f7; 
+   
+}
+
+.review-time {
+  font-size: 12px;
+  margin-top: -15px;
+  margin-bottom: -15px;
+  
+}
+
+.review-post {
+  font-size: 18px;
+  line-height: 30px;
 }

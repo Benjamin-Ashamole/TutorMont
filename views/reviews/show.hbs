@@ -21,6 +21,7 @@
         <p>{{review.body}}</p>
     </div>
 </div> --}}
+<div class='review-show-page'>
 <div class='review-head'>
     <div class='text-center review-header'>
         <h2>Reviews</h2>
@@ -28,11 +29,13 @@
     <div class='review-container container'>
     {{#each reviews as |review|}}
     <div class='review-body-container'>
+    <div class='review-container-body'>
     <div class='review-body'>
     <br>
-    <p>{{review.body}}</p>
+    <p class='review-post'>{{review.body}}</p>
     <hr>
-    <p>Posted {{review.createdAt}}</p>
+    <p class='review-time'>Posted {{review.createdAt}}</p>
+    </div>
     </div>
     </div>
     {{/each}}

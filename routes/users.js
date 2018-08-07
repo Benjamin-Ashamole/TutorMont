@@ -33,28 +33,23 @@ let client = new Upload(process.env.S3_BUCKET, {
 });
 
 /* GET users listing. */
+//User.find({ first: regex }
+
 router.get('/', auth.requireLogin, (req, res, next) => {
   const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-  if (req.query.search) {
-  //User.find({ first: regex } 
-    User.find( { $or: [ { first: regex }, { last: regex }, { school: regex }, { class: regex }, ] }, function(err, users) {
-      if(err) {
-        res.render('users/new');
-      }
-      res.render('users/index', { users: users}); 
-  });
+  if (req.query.search){
+    User.find({
+      $and : [
+        { $or : [ { first : regex }, { last : regex }, { class : regex } ] },
+        { $or : [ { isTutor : true } ] }
+      ] }, (err, users) => {
+      if (err) {
+          res.render('error') 
+        }
+      res.render('users/index', { users: users });
+    });
   }
-
-  // else {
-  //   User.find( { class: regex }, (err, users) => {
-  //     if (err) {
-  //       res.render('users/new');
-  //     }
-  //     res.render('users/index', { users: users});
-  //   })
-  // }
 });
-
 
 // Users new
 router.get('/new', function(req, res, next) {
@@ -68,10 +63,8 @@ router.post('/', upload.single('imageUrl'), (req, res, next) => {
     user.isTutor = true;
   }
    if (req.body.class !== "") {
-    
     user.class = classLister(req.body.class); 
    }
-
    if (checkEmail(req.body.email) === false) {
       return res.render('error')
    }
@@ -118,6 +111,7 @@ router.post('/:id', auth.requireLogin, (req, res, next) => {
     });
   });
 });
+
 //profile show
 router.get('/:id/profile', auth.requireLogin, (req, res, next) => {
   User.findById(req.session.userId, (err, user) => {
@@ -136,22 +130,24 @@ router.get('/:id/edit', auth.requireLogin, (req, res, next) => {
 });
 
 //profile update
-
 router.post('/:id', auth.requireLogin, (req, res, next) => {
   User.findByIdAndUpdate(req.session.userId, req.body, function(err, user) {
     if (req.body.isTutor === true) {
       user.isTutor = true;
     }
      if (req.body.class !== "") {
-      
       user.class = classLister(req.body.class); 
      }
-  
-     if (checkEmail(req.body.email) === false) {
-       console.error(err);
-     }
     if (err) { console.error(err); }
-    res.redirect('/trips/' + req.params.id);
+    res.redirect('users/profile');
+  });
+});
+
+//User delete
+router.delete('/', auth.requireLogin, (req, res, next) => {
+  User.findByIdAndRemove(req.body.delete_id, function(err, user) {
+    if (err) { console.error(err); }
+    res.redirect('/');
   });
 });
 
@@ -162,13 +158,11 @@ function escapeRegex(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, "\\$&");
 }
 
- function classLister(stringList) {
+function classLister(stringList) {
   return stringList.split(',');
- }
+}
 
- function checkEmail(email) {
-   return email.endsWith('edu');
- }
-
-
+function checkEmail(email) {
+  return email.endsWith('edu');
+}
 module.exports = router;

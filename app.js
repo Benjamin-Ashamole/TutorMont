@@ -10,7 +10,8 @@ const logger = require('morgan');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
-const Upload = require('s3-uploader');
+const bodyParser = require('body-parser');
+
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const reviewRouter = require('./routes/reviews');
@@ -27,6 +28,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(bodyParser.json());
 app.use(session({ secret: 'secret-unique-code', cookie: { maxAge: 3600000 }, resave: true, saveUninitialized: true }));
 
 app.use('/', indexRouter);

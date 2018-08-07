@@ -3,34 +3,33 @@ const router = express.Router();
 const User = require('../models/user');
 const auth = require('./helpers/auth');
 const reviews = require('./reviews');
+const aws = require('aws-sdk');
+const bodyParser = require('body-parser');
 const multer = require('multer');
-const Upload = require('s3-uploader');
+const multerS3 = require('multer-s3');
 
-const storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-      console.log(file)
-      let extArray = file.mimetype.split("/");
-      let ext = extArray[extArray.length - 1];
-      cb(null, Date.now() + "." + ext);
-  }
+
+aws.config.update({
+  secretAccessKey:  process.env.AWS_SECRET_ACCESS_KEY,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  region:  process.env.S3_REGION,
+  s3BucketEndpoint: true,
+  endpoint: 'https://s3.amazonaws.com/tutor-app-image-upload-bucket'
 });
 
-const upload = multer({ storage });
+s3 = new aws.S3();
 
-let client = new Upload(process.env.S3_BUCKET, {
-  aws: {
-    path: 'images/',
-    region: process.env.S3_REGION,
-    acl: 'public-read',
-    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-  },
-  cleanup: {
-    original: true,
-    versions: true
-  },
-  versions: [{}]
+let upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.S3_BUCKET,
+    key: function (req, file, cb) {
+      console.log(file);
+      cb(null, file.originalname); //use Date.now() for unique file keys
+    }
+  })
 });
+
 
 /* GET users listing. */
 //User.find({ first: regex }
@@ -58,7 +57,11 @@ router.get('/new', function(req, res, next) {
 
 // Users create
 router.post('/', upload.single('imageUrl'), (req, res, next) => {
-  const user = new User(req.body);
+  let user = new User(req.body);
+//});
+   if (req.file) {
+     user.imageUrl = req.file.location; 
+   }
   if (req.body.isTutor === true) {
     user.isTutor = true;
   }
@@ -100,17 +103,17 @@ router.get('/:id', (req, res, next) => {
 });
 
 //user update
-router.post('/:id', auth.requireLogin, (req, res, next) => {
-  User.findById(req.params.id, function(err, user) {
-    user.points += parseInt(req.body.points);
+// router.post('/:id', auth.requireLogin, (req, res, next) => {
+//   User.findById(req.params.id, function(err, user) {
+//     user.points += parseInt(req.body.points);
 
-    user.save(function(err, user) {
-      if(err) { console.error(err) };
+//     user.save(function(err, user) {
+//       if(err) { console.error(err) };
 
-      return res.redirect(/users/+req.params.id);
-    });
-  });
-});
+//       return res.redirect(/users/+req.params.id);
+//     });
+//   });
+// });
 
 //profile show
 router.get('/:id/profile', auth.requireLogin, (req, res, next) => {
@@ -130,16 +133,20 @@ router.get('/:id/edit', auth.requireLogin, (req, res, next) => {
 });
 
 //profile update
+
 router.post('/:id', auth.requireLogin, (req, res, next) => {
-  User.findByIdAndUpdate(req.session.userId, req.body, function(err, user) {
-    if (req.body.isTutor === true) {
+  User.findByIdAndUpdate(req.session.userId, req.body, (err, user) => {
+    if (req.body.istutor === true) {
       user.isTutor = true;
     }
-     if (req.body.class !== "") {
-      user.class = classLister(req.body.class); 
-     }
-    if (err) { console.error(err); }
-    res.redirect('users/profile');
+    if (req.body.class !== "") {
+      user.class = classLister(req.body.class);
+    }
+
+    user.save( (err, user) => {
+      if(err) { console.error(err) };
+      return res.redirect( req.session.userId +'/profile');
+    });
   });
 });
 

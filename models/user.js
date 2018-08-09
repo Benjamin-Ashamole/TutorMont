@@ -16,6 +16,9 @@ const UserSchema = new Schema ({
      class: { type: Array },
      points: { type: Number, default: 0 },
      imageUrl: { type: String },
+     upVotes: [ { type: Schema.Types.ObjectId, ref: 'User', required: true} ],
+     downVotes: [ { type: Schema.Types.ObjectId, ref: 'User', required: true} ],
+     voteTotal:  { type: Number, default: 0 },
      createdAt: { type: Date, default: Date.now }
 });
 

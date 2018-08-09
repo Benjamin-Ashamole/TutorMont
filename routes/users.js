@@ -92,13 +92,13 @@ router.post('/', upload.single('imageUrl'), (req, res, next) => {
   });
 });
 
-//user show - users/27262524
+//user show
 router.get('/:id', (req, res, next) => {
   User.findById(req.params.id, (err, user) => {
     if (err) {
       console.error(err);
     }
-    res.render('users/show', { user });
+    res.render('users/show', { user: user, vote: req.session.userId });
   });
 });
 
@@ -155,6 +155,43 @@ router.delete('/', auth.requireLogin, (req, res, next) => {
   User.findByIdAndRemove(req.body.delete_id, function(err, user) {
     if (err) { console.error(err); }
     res.redirect('/');
+  });
+});
+
+router.put('/:id/vote-up', (req, res) => {
+  const user = req.user;
+  // console.log('>>>>>>>>>>>>>'+ user._id + '<<<<<<<<<<<');
+  if (user === null) {
+    return;
+  }
+  User.findById(req.params.id).then((user) => {
+    user.downVotes.pull(req.session.userId);
+    user.upVotes.addToSet(req.session.userId);
+    user.voteTotal = user.upVotes.length - user.downVotes.length;
+    return user.save(); // FIXME: return promise
+  }).then((user) => {
+    res.status(200).json({ voteScore: user.voteTotal });
+  }).catch((err) => {
+    console.log(err);
+  });
+});
+
+router.put('/:id/vote-down', (req, res) => {
+  const user = req.user;
+  // console.log('>>>>>>>>>>>>>'+ user._id + '<<<<<<<<<<<');
+  if (user === null) {
+    return;
+  }
+  User.findById(req.params.id).then((user) => {
+    user.upVotes.pull(req.session.userId);
+    user.downVotes.addToSet(req.session.userId);
+    user.voteTotal = user.upVotes.length - user.downVotes.length;
+
+    user.save();
+
+    res.status(200).json({ voteScore: user.voteTotal });
+  }).catch((err) => {
+    console.log(err);
   });
 });
 

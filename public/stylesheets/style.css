@@ -11,6 +11,10 @@ nav {
   background-color: #7daeca;
 }
 
+.navbar-link {
+  font-size: 20px;
+}
+
 .review-show-page {
   padding-bottom: 24px;
 }

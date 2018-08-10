@@ -12,6 +12,7 @@ const UserSchema = new Schema ({
     password: { type: String, required: true },
     school: { type: String, required: true},
     isTutor: { type: Boolean, required: true, default: false},
+    price: {type: Number},
      tel: { type: Number },
      class: { type: Array },
      points: { type: Number, default: 0 },

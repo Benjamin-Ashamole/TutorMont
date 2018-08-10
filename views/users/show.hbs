@@ -11,9 +11,11 @@
     <p class='card-text'>{{user.tel}}</p>
     <p class='card-text'>{{user.class}}</p>
     {{!-- <a href='/users/{{user._id}}/edit' class='btn btn-dark'>Edit Profile</a> --}}
+    <div class="btn-group-vertical">
     <a href='/users/{{user._id}}/reviews/new' class='btn btn-dark'>Write A Review</a>
     <a href='/users/{{user._id}}/reviews/' class='btn btn-dark'>Read {{user.first}}'s Reviews</a>
     <a href='#' class='btn btn-dark'>Send {{user.first}} a Message</a>
+    </div>
      <div class="card-footer text-muted text-right">
           <span class="points-span">{{user.voteTotal}} points </span>
 
@@ -27,7 +29,6 @@
           </form>
           </div>
         </div>
-    
     </div>
     {{!-- <div class='image-links'>
       <a href='/users/{{user._id}}/reviews/new' class='btn btn-dark'>Write A Review</a>

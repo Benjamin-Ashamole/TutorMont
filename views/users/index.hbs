@@ -6,6 +6,8 @@
 </div>
 
 <div class='row text-center'>
+
+{{#if users}}
 {{#each users as |user| }}
 <div class="col-sm-4 col-lg col-md-4">
 <div class='card-summary'>
@@ -19,13 +21,15 @@
     <p class='card-text'>{{user.class}}</p>
   <div>
     <a href='/users/{{user._id}}' class='btn btn-dark'>View Profile</a>
-  {{!-- <a href='/users/reviews/new' class='btn btn-dark'>Write A Review</a>
-  <a href='#' class='btn btn-dark'>Send {{user.first}} a Message</a> --}}
 </div>
   </div>
 </div>
 </div>
 </div>
 {{/each}}
-
+{{else}}
+<div class='justify-content-center' >
+<span><p style='font-size: 20px; margin: auto;'>We found no tutors that matched that search, please try another search. <a href='/'>Go back to search</a></p></span>
+</div>
+{{/if}}
 </div>

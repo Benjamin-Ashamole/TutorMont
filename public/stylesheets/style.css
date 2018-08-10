@@ -15,6 +15,13 @@ nav {
   font-size: 20px;
 }
 
+#user-classes {
+  display: none;
+  width:60%; 
+  margin: auto; 
+  margin-bottom: 15px;
+}
+
 .review-show-page {
   padding-bottom: 24px;
 }
@@ -77,15 +84,25 @@ a {
 }
 
 .custom{
- 
   margin: 5px;
 }
 
-.signup-content>div>input{
+.label-test {
+  width:60%; 
+  margin: auto;
+  margin-bottom: 15px;
+}
+
+.signup-content>div>input {
+  margin:auto;
+  margin-bottom: 15px;
+}
+
+/* .signup-content>div>input{
   width:60%; 
   margin: auto; 
   margin-bottom: 15px;
-}
+} */
 
 #tutor-input{
   display: flex;

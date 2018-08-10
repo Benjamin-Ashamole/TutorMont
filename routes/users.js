@@ -102,19 +102,6 @@ router.get('/:id', (req, res, next) => {
   });
 });
 
-//user update
-// router.post('/:id', auth.requireLogin, (req, res, next) => {
-//   User.findById(req.params.id, function(err, user) {
-//     user.points += parseInt(req.body.points);
-
-//     user.save(function(err, user) {
-//       if(err) { console.error(err) };
-
-//       return res.redirect(/users/+req.params.id);
-//     });
-//   });
-// });
-
 //profile show
 router.get('/:id/profile', auth.requireLogin, (req, res, next) => {
   User.findById(req.session.userId, (err, user) => {
@@ -134,7 +121,7 @@ router.get('/:id/edit', auth.requireLogin, (req, res, next) => {
 
 //profile update
 
-router.post('/:id', auth.requireLogin, (req, res, next) => {
+router.post('/:id', auth.requireLogin, upload.single('imageUrl'), (req, res, next) => {
   User.findByIdAndUpdate(req.session.userId, req.body, (err, user) => {
     if (req.body.istutor === true) {
       user.isTutor = true;
@@ -160,7 +147,6 @@ router.delete('/', auth.requireLogin, (req, res, next) => {
 
 router.put('/:id/vote-up', (req, res) => {
   const user = req.user;
-  // console.log('>>>>>>>>>>>>>'+ user._id + '<<<<<<<<<<<');
   if (user === null) {
     return;
   }

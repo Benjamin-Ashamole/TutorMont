@@ -4,7 +4,7 @@ const User = require('../models/user');
 
 //Setting Layout Variables
 router.use((req, res, next) => {
-  res.locals.title = 'HermesTutor';
+  res.locals.title = 'TutorMont';
   res.locals.currentUserId = req.session.userId;
   
 

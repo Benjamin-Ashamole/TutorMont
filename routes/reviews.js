@@ -62,11 +62,18 @@ router.post('/', auth.requireLogin, (req, res, next) => {
   //      console.log('>>>>>> Found a user', user);
       
   //   });
-  // }); 'tutor': req.params.id
+  
   router.get('/', auth.requireLogin, (req, res, next) => {
     Review.find({ tutorId: req.params.userId },  (err, reviews) => {
     if (err) { console.error(err) };
     res.render('reviews/show', { reviews: reviews });
   }).sort({ createdAt: -1 });
-});
+  });
+
+// router.get('/:id', auth.requireLogin, (req, res, next) => {
+//   User.findById(req.params.id, (err, user)  => {
+//     if (err) { console.error(err) };
+//     res.render('reviews/show', { user: user });
+//   })
+// })
 module.exports = router;

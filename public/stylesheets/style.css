@@ -93,6 +93,10 @@ a {
   margin-bottom: 15px;
 }
 
+.responsive {
+  width: 80%;
+  height: auto;
+}
 .signup-content>div>input {
   margin:auto;
   margin-bottom: 15px;
@@ -142,8 +146,8 @@ a {
 }
 
 .image {
-  padding-left: 200px;
-  padding-top: 250px;
+  padding-left: 300px;
+  padding-top: 180px;
   padding-bottom:8px;
   max-width: 1px;
   max-height: 1px;

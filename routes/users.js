@@ -157,6 +157,8 @@ router.put('/:id/vote-up', (req, res) => {
     return user.save(); // FIXME: return promise
   }).then((user) => {
     res.status(200).json({ voteScore: user.voteTotal });
+    return location.reload();
+    //res.redirect('/:id/profile', { user });
   }).catch((err) => {
     console.log(err);
   });
@@ -176,6 +178,8 @@ router.put('/:id/vote-down', (req, res) => {
     user.save();
 
     res.status(200).json({ voteScore: user.voteTotal });
+    return location.reload();
+    //res.redirect('/:id/profile', { user });
   }).catch((err) => {
     console.log(err);
   });

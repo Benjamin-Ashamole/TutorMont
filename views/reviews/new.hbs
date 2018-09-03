@@ -1,40 +1,14 @@
-<div class="row">
-    <div class="col">
-        <h1 class="page-title">New Review</h1>
-    </div>
-</div>
 
-<div class="row">
-    <div class="col">
+<div class='homepage'>
+    <div class='review-new'>
         <form method="POST" action="/users/{{userId}}/reviews">
-          <!--  <div class="form-row">
-                <div class="form-group col-8 col-lg-6">
-                    <label for="movieName">Movie</label>
-                    <input type="text" name="movieName" class="form-control" id="movieName" placeholder="What did you watch?">
-                </div>
-                <div class="form-group col-4 col-lg-6">
-                    <label for="inputRating">Your Rating</label>
-                    <select name="rating" id="inputRating" class="form-control">
-                        <option value="5">5 - Amazing</option>
-                        <option value="4">4 - Pretty good</option>
-                        <option value="3">3 - Not bad</option>
-                        <option value="2">2 - Meh</option>
-                        <option value="1">1 - Terrible</option>
-                    </select>
-                </div>
+            <div class="form-group text-center">
+                <label for="reviewBody" style='font-size: 20px'>Write a Review</label>
+                <textarea name="body" class="form-control" id="reviewBody" cols='100' placeholder="How was your session"></textarea>
             </div>
-
-            <div class="form-group">
-                <label for="reviewTitle">Title</label>
-                <input type="text" name="title" class="form-control" id="reviewTitle" placeholder="Write a headline for your review here...">
-            </div>-->
-
-            <div class="form-group">
-                <label for="reviewBody">Write Review</label>
-                <textarea name="body" class="form-control" id="reviewBody" rows="3" columns="4" placeholder="How was your session"></textarea>
-            </div>
-
+            <div class='text-center'>
             <button type="submit" class="btn btn-primary">Post Review</button>
+            </div>
         </form>
     </div>
 </div>

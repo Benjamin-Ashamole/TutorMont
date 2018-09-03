@@ -1,33 +1,32 @@
 <form action="/users" method="post" enctype="multipart/form-data" class='signup'>
-
-<div class="container-fluid section header">
-    <div class="signup-content">
-        <h2 class="login-label text-center">Sign up</h2>
+ <div class="container-fluid section header">
+  <div class="signup-content">
+   <h2 class="login-label text-center"style='margin-top: 60px;'>Sign up</h2>
 
         <div class="form-group text-center label-test">
 
-        <input type="text" id="user-first-name" name="first" class="form-control" placeholder="First Name" autocomplete="off" maxlength="45">
+        <input type="text" id="user-first-name" name="first" class="form-control" placeholder="*First Name" autocomplete="off" maxlength="45">
 
-        <input type="text" id="user-last-name" name="last" class="form-control" placeholder="Last Name" autocomplete="off" maxlength="45">
+        <input type="text" id="user-last-name" name="last" class="form-control" placeholder="*Last Name" autocomplete="off" maxlength="45">
 
-        <input type="email" id="user-email" name="email" class="form-control" placeholder="E-mail" autocomplete="off" maxlength="45">
-        
-        <input type="text" name="username" class="form-control" id="user-username" placeholder="Username" maxlength="45" autocomplete="off">
+        <input type="email" id="user-email" name="email" class="form-control" placeholder="*E-mail" autocomplete="off" maxlength="45">
 
-        <input type="password" id="user-password" name="password" class="form-control" placeholder="Password" autocomplete="off" maxlength="45">
+        <input type="text" name="username" class="form-control" id="user-username" placeholder="*Username" maxlength="45" autocomplete="off">
+
+        <input type="password" id="user-password" name="password" class="form-control" placeholder="*Password" autocomplete="off" maxlength="45">
+
+        <input type="text" id="user-school" name="school" class="form-control" placeholder="*School" autocomplete="off" maxlength="45">
 
         <input type="tel" id="user-tel" name="tel" class="form-control" placeholder="Phone" autocomplete="off" maxlength="45">
 
-        <input type="text" id="user-school" name="school" class="form-control" placeholder="School" autocomplete="off" maxlength="45">
-          
         <input type="file" name="imageUrl" id='user-image' class='form-control' placeholder="Please Upload an Image">
-      
+
         <div class='text-center' id='tutor-input'>
-          <label for="">Would you like to be a tutor?</label>
+          <span><label for="">Would you like to be a tutor?</label>
           <div>
             <label for='istutor'>Yes</label><input onclick="classReveal()" type="radio" name="isTutor" value="true" id='istutor'>
             <label for='isnottutor'>No</label> <input type="radio" name="isTutor" value="false" id='isnottutor' checked>
-          </div>
+          </div></span>
         </div>
 
         <p>Please enter a comma separated list of classes you can tutor</p>

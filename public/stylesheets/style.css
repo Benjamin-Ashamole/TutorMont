@@ -117,13 +117,13 @@ a {
   border-radius: 10px;
   padding-bottom: 30px;
 }
-.review-body {
-  /* border: solid;
+/* .review-body {
+   border: solid;
   border-color: #7daeca;
-  border-radius: 10px; */
-  /* padding-bottom: 10px;
-  padding-top: 10px;  */
-}
+  border-radius: 10px;
+  padding-bottom: 10px;
+  padding-top: 10px; 
+}*/
 
 .review-body-container {
   padding: 10px;
@@ -145,7 +145,7 @@ a {
 
 .bottom-nav-custom {
   text-decoration: none;
-  font-color: black;
+  color: black;
 }
 
 /* ====================================================New Css ========================================================= */

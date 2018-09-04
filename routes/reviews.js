@@ -6,16 +6,7 @@ const auth = require('./helpers/auth');
 const User = require('../models/user');
 const users = require('./users');
 
-// router.get('/', auth.requireLogin, (req, res, next) => {
-//   User.findById(req.params.id, (err, user) => {
-//     if (err) { console.error(err) };
-//     Review.find({user}, (err, reviews) => {
-//       if (err) { console.error(err) };
-//       res.render('reviews/index', { user: user, reviews: reviews });
-//     });
-//   });
-  
-//});
+
 //Review new
 router.get('/new', auth.requireLogin, (req, res, next) => {
     res.render('reviews/new', { userId: req.params.userId });
@@ -32,6 +23,7 @@ router.post('/', auth.requireLogin, (req, res, next) => {
       return res.redirect( `reviews`);
     });
   });
+<<<<<<< HEAD
 
   //review show
   // router.get('/:id', auth.requireLogin, (req, res, next) => {
@@ -63,6 +55,9 @@ router.post('/', auth.requireLogin, (req, res, next) => {
       
   //   });
   
+=======
+// review show  
+>>>>>>> imgupload
   router.get('/', auth.requireLogin, (req, res, next) => {
     Review.find({ tutorId: req.params.userId },  (err, reviews) => {
     if (err) { console.error(err) };

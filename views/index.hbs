@@ -1,61 +1,20 @@
-<header class='row'>
-    <main class='container homepage'>
-    <div class='text-center cardbox page'>
-		<div class='container-fluid justify-content-center'>
-			<div class='text-center'>
-				<h1>TutorMont
-                    <span class="typer" id="main" data-words="is new,is fun,is innovative," data-colors="#" data-delay="100" data-deleteDelay="1000"></span>
-                    <span class="cursor" data-owner="main"></span>
-                </h1>
-                
-				<p>Platform connecting students with tutoring needs, to those who can tutor them.</p>
-            {{#if currentUserId}}
-
-            <div class='text-center'>
-                <div class="card justify-content-center" style="width: 30rem; height: 20rem">
-                <div class="card-body">
-                    <h4 class="card-title">Find A Tutor</h4>
-                    <div class='element'></div>
-            <div>
-                <form method='get' action='/users' class='justify-content-center card-body'>
-                    <input type='text' class='form-control' placeholder='Search a name or class' name='search'>
-                    <div class='searchbar'>
-                    <button type='submit' class='btn btn-primary btn-lg' name="search_type" value='name' style='width:100px;'><i class='fa fa-search'></i></button>   
-                    </div>
-                </form>
-            </div>
-            {{/if}}
-
-                </div>         
-            </div>
-        </div>
-        </div>
-		</div>
-        </div>
-    </main>
-</header>
-{{!-- {{else}} --}}
-{{!-- <header class='row'>
-    <main class='container homepage'>
-    <div class='text-center cardbox page'>
-		<div class='container-fluid justify-content-center'>
-			<div class='text-center'>
-			<h1>Hermes Tutor
-                <span class="typer" id="main" data-words="great,fun,lightweight,easy" data-colors="white" data-delay="100" data-deleteDelay="1000"></span>
-                <span class="cursor" data-owner="main"></span>
-            </h1>
-			<p>Platform connecting students who need tutoring, to those who can tutor them.</p>
-            <div class='typer-test'></div>
-        </div>
-		</div>
-        </div>
-    </main>
-</header> --}}
-
-{{!-- {{/if}} --}}
-{{!-- <script>
-    typer('.typer-test')
-    .line('This function roolz.')
-    .back(5)
-    .continue('ules!');
-</script> --}}
+<main class='home-container'>
+ <div class='homepage'>
+  <div class='header-message'>
+   <h1 class='text-center'>TutorMont
+     <span class="typer" id="main" data-words="is new,is fun,is innovative," data-colors="#" data-delay="100" data-deleteDelay="1000"></span>
+     <span class="cursor" data-owner="main"></span>
+   </h1>
+    <p class='text-center'>Platform connecting students with tutoring needs, to those who can tutor them.</p>
+   </div>
+   {{#if currentUserId}}
+    <div class='header-body'>
+     <h3 style='margin-top: -45px; margin-bottom:15px;'>Find A Tutor</h3>
+     <form method='get' action='/users' class='search-button'>
+      <input type='text' class='form-control' placeholder='Search a name or class' name='search' style='margin-right:3px;'>
+      <button type='submit' class='btn btn-primary btn-lg search-button' name="search_type" value='name' style='width:100px; border-radius: 10px;'><i class='fa fa-search'></i></button>
+     </form>
+   </div>
+   {{/if}}
+   </div>
+  </main>

@@ -10,6 +10,9 @@ const UserSchema = new Schema ({
      email: { type: String, required: true, unique: true },
     username: { type: String, required: true, unique: true},
     password: { type: String, required: true },
+    isVerified: {type: Boolean, default: false},
+    passwordResetToken: {type: String},
+    passwordResetExpires: {type: Date},
     school: { type: String, required: true},
     isTutor: { type: Boolean, required: true, default: false},
     price: {type: Number},
@@ -25,20 +28,20 @@ const UserSchema = new Schema ({
 
 UserSchema.pre('save', function(next) {
     let user = this;
-    
-    if (!user.isModified('password')) 
+
+    if (!user.isModified('password'))
     return next();
-  
+
     bcrypt.hash(user.password, 10, function (err, hash){
       if (err) return next(err);
-  
+
       user.password = hash;
       next();
     });
   });
-  
-  UserSchema.statics.authenticate = function(username, password, next) {
-    User.findOne({ username: username })
+
+  UserSchema.statics.authenticate = function(email, password, next) {
+    User.findOne({ email: email })
       .exec(function (err, user) {
         if (err) {
           return next(err)
@@ -56,9 +59,5 @@ UserSchema.pre('save', function(next) {
         });
       });
   }
-
-  
   const User = mongoose.model('User', UserSchema);
-  
-
-module.exports = User;
+  module.exports = User;

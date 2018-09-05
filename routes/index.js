@@ -6,7 +6,7 @@ const User = require('../models/user');
 router.use((req, res, next) => {
   res.locals.title = 'TutorMont';
   res.locals.currentUserId = req.session.userId;
-  
+
 
   next();
 });
@@ -22,7 +22,7 @@ router.get('/login', function(req, res, next) {
 
 //Login Create
 router.post('/login', (req, res, next) => {
-  User.authenticate(req.body.username,
+  User.authenticate(req.body.email,
   req.body.password, (err, user) => {
     if (err || !user) {
       console.log(err)

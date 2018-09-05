@@ -43,7 +43,7 @@ router.get('/', auth.requireLogin, (req, res, next) => {
         { $or : [ { isTutor : true } ] }
       ] }, (err, users) => {
       if (err) {
-          res.render('error') 
+          res.render('error')
         }
       res.render('users/index', { users: users });
     });
@@ -60,13 +60,13 @@ router.post('/', upload.single('imageUrl'), (req, res, next) => {
   let user = new User(req.body);
 //});
    if (req.file) {
-     user.imageUrl = req.file.location; 
+     user.imageUrl = req.file.location;
    }
   if (req.body.isTutor === true) {
     user.isTutor = true;
   }
    if (req.body.class !== "") {
-    user.class = classLister(req.body.class); 
+    user.class = classLister(req.body.class);
    }
    if (checkEmail(req.body.email) === false) {
       return res.render('error')
@@ -75,7 +75,7 @@ router.post('/', upload.single('imageUrl'), (req, res, next) => {
     if (err) {
       console.log(err);
     }
-    User.authenticate(req.body.username,
+    User.authenticate(req.body.email,
     req.body.password, (err, user) => {
       if (err || !user) {
         // console.log(err.message);

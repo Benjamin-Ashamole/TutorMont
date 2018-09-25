@@ -52,7 +52,7 @@ app.use(function(err, req, res, next) {
 });
 
 
-const mongoURI = 'mongodb://' + process.env.MONGODB_ADMIN + ':' + process.env.MONGODB_PASSWORD + '@ds147411.mlab.com:47411/' + process.env.MONGODB_ADMIN;
+const mongoURI = 'mongodb://' + process.env.MONGODB_ADMIN + ':' + process.env.MONGODB_PASSWORD + '@ds259732.mlab.com:59732/' + process.env.MONGODB_ADMIN;
 
 mongoose.connect(mongoURI)
 mongoose.Promise = global.Promise;

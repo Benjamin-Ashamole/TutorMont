@@ -28,15 +28,20 @@ router.post('/login', (req, res, next) => {
       console.log(err)
       const next_error = new Error("Username or password incorrect");
       next_error.status = 401;
-
       return next(next_error);
-    } else {
+    }
+    // if (!user.isVerified) {
+    //   const verification_error = new Error('Your Account is not yet verified. A verification email should have been sent to the email address you provided at signup');
+    //   verification_error.status = 401;
+    //   return next(verification_error);
+    // }
+    else {
       req.session.userId =  user._id;
-
       return res.redirect('/');
     }
   });
 });
+
 
 router.get('/logout', (req, res, next) => {
   if (req.session) {

@@ -4,15 +4,14 @@ $(document).ready(function() {
         e.preventDefault();
         console.log("**********");
       });
-    
+
       $('.user-vote-up').submit(function (e) {
         e.preventDefault();
-    
+
         var userId = $(this).data('id');
-    
         // $.get('/path', {a:12, b:23}, function(data){})
         // $.post('/path', {a:12}, function(data){})
-    
+
         console.log('users/' + userId + '/vote-up')
         console.log($)
         console.log($.ajax)
@@ -28,13 +27,13 @@ $(document).ready(function() {
           }
         });
       });
-    
+
       $('.user-vote-down').submit(function (e) {
         e.preventDefault();
-    
+
         var userId = $(this).data('id'); // data-id
         // $(this).attr('data-id')
-    
+
         $.ajax({
           type: 'PUT',
           url: userId + '/vote-down',
@@ -47,5 +46,4 @@ $(document).ready(function() {
           }
         });
       });
-    
 });

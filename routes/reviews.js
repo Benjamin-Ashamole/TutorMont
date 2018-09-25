@@ -24,7 +24,7 @@ router.post('/', auth.requireLogin, (req, res, next) => {
     });
   });
 
-// review show  
+// review show
   router.get('/', auth.requireLogin, (req, res, next) => {
     Review.find({ tutorId: req.params.userId },  (err, reviews) => {
     if (err) { console.error(err) };
@@ -32,10 +32,23 @@ router.post('/', auth.requireLogin, (req, res, next) => {
   }).sort({ createdAt: -1 });
   });
 
-// router.get('/:id', auth.requireLogin, (req, res, next) => {
-//   User.findById(req.params.id, (err, user)  => {
+// router.get('/', auth.requireLogin, (req, res, next) => {
+//   Review.find({ tutorId: req.params.userId },  (err, reviews) => {
+//   if (err) { console.error(err) };
+//   User.find({ tutorId: req.params.userId }, (err, user) =>{
 //     if (err) { console.error(err) };
-//     res.render('reviews/show', { user: user });
+//   })
+//   res.render('reviews/show', { user: user, reviews: reviews });
+// }).sort({ createdAt: -1 });
+// })
+
+// router.get('/', auth.requireLogin, (req, res, next) => {
+//   User.findById({ tutorId: req.params.userId }, (err, user)  => {
+//     if (err) { console.error(err) };
+//     Review.find({ tutorId: req.params.userId },  (err, reviews) => {
+//     if (err) { console.error(err) };
+//     res.render('reviews/show', { user: user, reviews: reviews });
+//   }).sort({ createdAt: -1 });
 //   })
 // })
 module.exports = router;

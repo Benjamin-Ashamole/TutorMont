@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
+const Token = require('../models/token');
 const auth = require('./helpers/auth');
 const reviews = require('./reviews');
 const aws = require('aws-sdk');
 const bodyParser = require('body-parser');
 const multer = require('multer');
 const multerS3 = require('multer-s3');
+const crypto = require('crypto');
+const nodemailer = require('nodemailer');
 
 
 aws.config.update({
@@ -29,9 +32,6 @@ let upload = multer({
     }
   })
 });
-
-
-/* GET users listing. */
 //User.find({ first: regex }
 
 router.get('/', auth.requireLogin, (req, res, next) => {
@@ -46,7 +46,7 @@ router.get('/', auth.requireLogin, (req, res, next) => {
           res.render('error')
         }
       res.render('users/index', { users: users });
-    });
+    }).sort({voteTotal: -1});
   }
 });
 
@@ -55,10 +55,57 @@ router.get('/new', function(req, res, next) {
   res.render('users/new');
 });
 
-// Users create
+
+//Users create
+// router.post('/', upload.single('imageUrl'), (req, res, next) => {
+//   User.findOne({email: req.body.email}, (err, foundUser) => {
+//     if (err) {console.error(err)};
+//     if (foundUser){
+//       return res.render('errors/email');
+//     }
+//     let user = new User(req.body);
+//     console.log(user)
+//      if (req.file) {
+//        user.imageUrl = req.file.location;
+//      }
+//      if (req.body.isTutor === true) {
+//       user.isTutor = true;
+//     }
+//      if (req.body.class !== "") {
+//       user.class = classLister(req.body.class);
+//      }
+//      if (checkEmail(req.body.email) === false) {
+//         return res.render('errors/edu')
+//      }
+//     user.save(function(err, user) {
+//       if (err) { console.error(err) };
+//       let token = new Token({ userId: user._id, token: crypto.randomBytes(16).toString('hex') });
+//       token.save((err, token) => {
+//         if(err) { console.error(err) };
+//
+//         let transporter = nodemailer.createTransport({ service: 'AOL', auth: { user: process.env.AOL_USERNAME, pass: process.env.AOL_PASSWORD } });
+//          let mailOptions = { from: 'obinna0515@aol.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n Please verify your account by clicking the link:\nhttp:\/\/'+req.headers.host+'\/confirmation\/'+token.token+'.\n' };
+//           transporter.sendMail(mailOptions, function (err) {
+//             console.log(err)
+//            if (err) {
+//              const sendMail_error = new Error('Email was not sent');
+//              sendMail.status = 500;
+//              return next(sendMail_error);
+//            }
+//            // { return res.status(500).send({ msg: err.message }); }
+//
+//            else {
+//              res.status(200).send('A verification email has been sent to ' + user.email + '.');
+//            }
+//       })
+//     });
+//   });
+// });
+// });
+
+//User create old
 router.post('/', upload.single('imageUrl'), (req, res, next) => {
   let user = new User(req.body);
-//});
    if (req.file) {
      user.imageUrl = req.file.location;
    }
@@ -91,6 +138,51 @@ router.post('/', upload.single('imageUrl'), (req, res, next) => {
     });
   });
 });
+
+router.post('/confirmation', (req, res, next) => {
+  Token.findOne({ token: req.body.token }, function (err, token) {
+        if (!token) return res.status(400).send({ type: 'not-verified', msg: 'We were unable to find a valid token. Your token my have expired.' });
+
+        // If we found a token, find a matching user
+        User.findOne({ _id: token._userId }, function (err, user) {
+            if (!user) return res.status(400).send({ msg: 'We were unable to find a user for this token.' });
+            if (user.isVerified) return res.status(400).send({ type: 'already-verified', msg: 'This user has already been verified.' });
+
+            // Verify and save the user
+            user.isVerified = true;
+            user.save(function (err) {
+                if (err) { return res.status(500).send({ msg: err.message }); }
+                res.status(200).send("The account has been verified. Please log in.");
+                res.render('confirmation', {token: token});
+            });
+        });
+    });
+});
+
+router.post('/resendTokenPost', (req, res, next) => {
+  User.findOne({ email: req.body.email }, function (err, user) {
+       if (!user) return res.status(400).send({ msg: 'We were unable to find a user with that email.' });
+       if (user.isVerified) return res.status(400).send({ msg: 'This account has already been verified. Please log in.' });
+
+       // Create a verification token, save it, and send email
+       var token = new Token({ _userId: user._id, token: crypto.randomBytes(16).toString('hex') });
+
+       // Save the token
+       token.save(function (err) {
+           if (err) { return res.status(500).send({ msg: err.message }); }
+
+           // Send the email
+           let transporter = nodemailer.createTransport({ service: 'AOL', auth: { user: process.env.GMAIL_USERNAME, pass: process.env.GMAIL_PASSWORD } });
+            let mailOptions = { from: 'obinna0515@aol.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n' + 'Please verify your account by clicking the link: \nhttp:\/\/' + req.headers.host + '\/confirmation\/' + token.token + '.\n' };
+           transporter.sendMail(mailOptions, function (err) {
+               if (err) { return res.status(500).send({ msg: err.message }); }
+               res.status(200).send('A verification email has been sent to ' + user.email + '.');
+           });
+       });
+
+   });
+});
+
 
 //user show
 router.get('/:id', (req, res, next) => {

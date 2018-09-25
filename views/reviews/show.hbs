@@ -1,46 +1,38 @@
-{{!-- <div class='review-show-page'>
-<div class='review-head'>
-    <div class='text-center review-header'>
-        <h2>Reviews</h2>
-    </div>
-    <div class='review-container container'>
-    {{#each reviews as |review|}}
-    <div class='review-body-container'>
-    <div class='review-container-body'>
-    <div class='review-body'>
-    <br>
-    <p class='review-post'>{{review.body}}</p>
-    <hr>
-    <p class='review-time'>Posted {{review.createdAt}}</p>
-    </div>
-    </div>
-    </div>
-    {{/each}}
-    </div>
-</div>
-</div> --}}
-<div class='review-show-page'>
-<div class='review-head'>
-    <div class='text-center review-header'>
-        <h2>Reviews</h2>
-    </div>
+<div class='myContainer'>
+  <div class='homepage'>
     {{#if reviews}}
-    <div class='review-container container'>
+    <div class='text-center review-header'>
+        <h2>Reviews</h2>
+    </div>
     {{#each reviews as |review|}}
-    <div class='review-body-container'>
-    <div class='review-container-body'>
-    <div class='review-body'>
-    <br>
-    <p class='review-post'>{{review.body}}</p>
+    <div class='review'>
+    <p class='review-body'>{{review.body}}</p>
     <hr>
     <p class='review-time'>Posted {{review.createdAt}}</p>
     </div>
-    </div>
-    </div>
     {{/each}}
-    </div>
     {{else}}
-    <h3>No Reviews have been posted on this tutor</h3>
+    <div class='homepage'>
+      <div>
+        <h3>No Review has been posted on this tutor
+      </div>
+      <div>
+      <a class='btn btn-primary btn-lg' onclick='goBack()'><i class='fa fa-arrow-circle-left'></i></a></h3>
+    </div>
+    </div>
     {{/if}}
 </div>
 </div>
+
+
+
+
+
+
+
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>

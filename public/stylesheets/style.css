@@ -231,14 +231,9 @@ header>h2 {
     align-items: center;
     background-color: rgba(231, 231, 243, 0.699);
     height: 55%;
-<<<<<<< HEAD
-    width: 80%;
-    border-radius: 5px;
-=======
     width: 85%;
     border-radius: 5px;
   }
->>>>>>> cssmedia
 }
 
 .search-button {

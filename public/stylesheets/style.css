@@ -223,6 +223,18 @@ header>h2 {
   border-radius: 5px;
 }
 
+@media only screen and (max-width: 750px){
+  .header-body {
+    display: flex;
+  	flex-direction: column;
+  	justify-content: center;
+    align-items: center;
+    background-color: rgba(231, 231, 243, 0.699);
+    height: 55%;
+    width: 80%;
+    border-radius: 5px;
+}
+
 .search-button {
   display: flex;
 	flex-direction: row;
@@ -249,7 +261,7 @@ header>h2 {
     align-items: center;
     background-color: rgba(231, 231, 243, 0.75);
     border-radius: 10px;
-    height: 60%;
+    height: 65%;
     width: 80%;
   }
 }

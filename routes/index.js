@@ -52,6 +52,9 @@ router.get('/logout', (req, res, next) => {
   return res.redirect('/');
 });
 
+router.get('/privacy-policy', function(req, res, next) {
+  res.render('privacy-policy');
+});
 
 
 module.exports = router;

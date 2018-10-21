@@ -1,4 +1,4 @@
-{{#if users}}
+<!-- {{#if users}}
 <header>
   <h2>Tutors<h2>
 </header>
@@ -10,11 +10,34 @@
     <p class="tutor-school">{{user.school}}</p>
     <p class='tutor-email'>{{user.email}}</p>
     <p class='tutor-class'>{{user.class}}</p>
-    <a href='/users/{{user._id}}' class='btn btn-dark'>View Profile</a>
+     <a href='/users/{{user._id}}' class='btn btn-dark'>View Profile</a>
     </div>
     {{/each}}
    </div>
  </div>
  {{else}}
  <span class='text-center'><p style='font-size: 20px; margin: auto; margin-top: 100px;'>We found no tutors that matched that search, please try another search. <a href='/'>Go back to search</a></p></span>
- {{/if}}
+ {{/if}} -->
+
+ {{#if realUsers}}
+ <div style='width: 100%;'>
+ <header>
+   <h2>Tutors<h2>
+ </header>
+ <div class='allTutors section'>
+    <div class='tutor-body'>
+     {{#each realUsers as |realUser|}}
+     <div class='summary tutors'>
+     <h3 class="tutor-name">{{realUser.first}} {{realUser.last}}</h3>
+     <p class="tutor-school">{{realUser.school}}</p>
+     <p class='tutor-email'>{{realUser.email}}</p>
+     <p class='tutor-class'>{{realUser.class}}</p>
+      <a href='/users/{{realUser._id}}' class='btn btn-dark'>View Profile</a>
+     </div>
+     {{/each}}
+    </div>
+  </div>
+  {{else}}
+  <span class='text-center'><p style='font-size: 20px; margin: auto; margin-top: 100px;'>We found no tutors that matched that search, please try another search. <a href='/'>Go back to search</a></p></span>
+  {{/if}}
+</div>

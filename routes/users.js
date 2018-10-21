@@ -32,23 +32,29 @@ let upload = multer({
     }
   })
 });
-//User.find({ first: regex }
 
 router.get('/', auth.requireLogin, (req, res, next) => {
-  const regex = new RegExp(escapeRegex(req.query.search), 'gi');
-  if (req.query.search){
-    User.find({
-      $and : [
-        { $or : [ { first : regex }, { last : regex }, { class : regex } ] },
-        { $or : [ { isTutor : true } ] }
-      ] }, (err, users) => {
-      if (err) {
-          res.render('error')
-        }
-      res.render('users/index', { users: users });
-    }).sort({voteTotal: -1});
-  }
-});
+  User.findById(req.session.userId, (err, currentUser) =>{
+    if (err) {console.error(err)}
+    const regex = new RegExp(escapeRegex(req.query.search), 'gi');
+    if (req.query.search) {
+      User.find({
+        $and : [
+          { $or : [ { first : regex }, { last : regex }, { class : regex } ] },
+          { $or : [ { isTutor : true } ] }
+        ] }, (err, users) => {
+          if (err) { console.log(err)}
+          let realUsers = [];
+          for (let user of users) {
+            if (user.school == currentUser.school) {
+              realtutors = realUsers.push(user)
+            }
+          }
+          res.render('users/index', { realUsers: realUsers, currentUser:currentUser, users: users })
+        }).sort({voteTotal: -1})
+    }
+  })
+})
 
 // Users new
 router.get('/new', function(req, res, next) {
@@ -291,4 +297,9 @@ function classLister(stringList) {
 function checkEmail(email) {
   return email.endsWith('edu');
 }
+
+function tutors() {
+users.school === currentUser.school
+}
+
 module.exports = router;

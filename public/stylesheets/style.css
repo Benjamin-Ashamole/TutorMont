@@ -351,7 +351,7 @@ header>h2 {
  width: 75%;
 }
 
-@media only screen and (max-width: 750px) {
+@media only screen and (max-width: 1245px) {
   .show-profile {
    margin-top: 10%;
    /*margin-right: 15em;*/

@@ -11,6 +11,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const passport = require('passport');
 const bodyParser = require('body-parser');
+const socket = require('socket.io');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');

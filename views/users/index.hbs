@@ -1,26 +1,4 @@
-<!-- {{#if users}}
-<header>
-  <h2>Tutors<h2>
-</header>
-<div class='section allTutors'>
-   <div class='tutor-body'>
-    {{#each users as |user|}}
-    <div class='tutors summary'>
-    <h3 class="tutor-name">{{user.first}} {{user.last}}</h3>
-    <p class="tutor-school">{{user.school}}</p>
-    <p class='tutor-email'>{{user.email}}</p>
-    <p class='tutor-class'>{{user.class}}</p>
-     <a href='/users/{{user._id}}' class='btn btn-dark'>View Profile</a>
-    </div>
-    {{/each}}
-   </div>
- </div>
- {{else}}
- <span class='text-center'><p style='font-size: 20px; margin: auto; margin-top: 100px;'>We found no tutors that matched that search, please try another search. <a href='/'>Go back to search</a></p></span>
- {{/if}} -->
-
- {{#if realUsers}}
- <div style='width: 100%;'>
+{{#if realUsers}}
  <header>
    <h2>Tutors<h2>
  </header>
@@ -37,7 +15,7 @@
      {{/each}}
     </div>
   </div>
+  <script> console.log({{realUsers}})</script>
   {{else}}
   <span class='text-center'><p style='font-size: 20px; margin: auto; margin-top: 100px;'>We found no tutors that matched that search, please try another search. <a href='/'>Go back to search</a></p></span>
   {{/if}}
-</div>

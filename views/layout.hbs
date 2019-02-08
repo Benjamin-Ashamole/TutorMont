@@ -4,15 +4,24 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <!-- Bootstrap CSS -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.js'></script>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css'>
+  <link href="https://fonts.googleapis.com/css?family=Cabin|Galada|Lato|Oswald|Quicksand|Roboto" rel="stylesheet">
   <title>{{title}}</title>
   <link rel='stylesheet' href='/stylesheets/style.css'/>
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
   <script src="/javascripts/acc.js"/></script>
+  <script src="/javascripts/autocomplete.js"/></script>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-#7daeca">
+  <!-- <div class='btn-group ml-auto' role='group' style='position:absolute; right: 0px; top: 0px; z-index: 1;'>
+    <button type='button' class='btn btn-dark' style='width:25%;'><i class='fa fa-facebook'></i></button>
+    <button type='button' class='btn btn-dark' style='width:25%;'><i class='fa fa-google'></i></button>
+    <button type='button' class='btn btn-dark' style='width:25%;'><i class='fa fa-twitter'></i></button>
+    <button type='button' class='btn btn-dark' style='width:25%;'><i class='fa fa-instagram'></i></button>
+  </div> -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light bg-#7daeca" style='z-index: 0;'>
     <div class="left-nav">
         <a href="/"><img src="/img/log.png" alt="logo" class="navbar-brand"></a>
       </div>
@@ -53,5 +62,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <script src="/javascripts/typer.js"/></script>
+  <!-- <script src="/javascripts/schools.js"/></script> -->
   </body>
 </html>

@@ -30,7 +30,9 @@
     "nodemon": "^1.18.3",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
+    "request": "^2.88.0",
     "s3-uploader": "^2.0.3",
+    "socket.io": "^2.2.0",
     "typer-js": "^4.1.0"
   }
 }

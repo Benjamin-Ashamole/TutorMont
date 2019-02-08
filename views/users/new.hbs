@@ -1,3 +1,4 @@
+{{#if schools}}
 <form action="/users" method="post" enctype="multipart/form-data" class='signup'>
  <div class="container-fluid section header">
   <div class="signup-content">
@@ -38,6 +39,11 @@
     </div>
 </div>
 </form>
+{{/if}}
+<!-- <script>
+  autoComplete(document.getElementById("user-school"), allSchools);
+</script> -->
+
 <script>
 function classReveal() {
     var x = document.getElementById("user-classes");

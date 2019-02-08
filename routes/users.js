@@ -10,6 +10,7 @@ const multer = require('multer');
 const multerS3 = require('multer-s3');
 const crypto = require('crypto');
 const nodemailer = require('nodemailer');
+const request = require('request');
 
 
 aws.config.update({
@@ -33,6 +34,7 @@ let upload = multer({
   })
 });
 
+
 router.get('/', auth.requireLogin, (req, res, next) => {
   User.findById(req.session.userId, (err, currentUser) =>{
     if (err) {console.error(err)}
@@ -55,10 +57,26 @@ router.get('/', auth.requireLogin, (req, res, next) => {
     }
   })
 })
-
 // Users new
 router.get('/new', function(req, res, next) {
-  res.render('users/new');
+  const url = "http://universities.hipolabs.com/search?country=United+States&name=james";
+   request.get(url, (err, response, schools) => {
+     if(err) { console.error(err) }
+      schools = JSON.parse(schools);
+      console.log(schools);
+      let allSchools = [];
+      for (let school of schools) {
+        //console.log(school.name)
+        allSchools.push(school.name);
+    }
+  //  console.log('allSchools', allSchools)
+
+    const jschools = {
+      allSchools
+    }
+    //console.log(jschools);
+    res.render('users/new', { schools: schools });
+ });
 });
 
 

@@ -9,15 +9,17 @@
     <p class='review-body'>{{review.body}}</p>
     <hr>
     <p class='review-time'>Posted {{review.createdAt}}</p>
-    </div>
+  </div>
     {{/each}}
+    <a href='/users/{{user._id}}/' class='btn btn-dark'>Return to {{user.first}}'s Profile</a>
     {{else}}
     <div class='homepage'>
       <div>
         <h3>No Review has been posted on this tutor
       </div>
       <div>
-      <a class='btn btn-primary btn-lg' onclick='goBack()'><i class='fa fa-arrow-circle-left'></i></a></h3>
+        <a class='btn btn-dark' onclick='goBack()'><i class='fa fa-arrow-circle-left'></i></a>
+      <!--<a class='btn btn-primary btn-lg' onclick='goBack()'><i class='fa fa-arrow-circle-left'></i></a></h3>-->
     </div>
     </div>
     {{/if}}
@@ -26,12 +28,8 @@
 
 
 
-
-
-
-
-
 <script>
+
 function goBack() {
     window.history.back();
 }

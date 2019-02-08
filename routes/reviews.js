@@ -12,10 +12,10 @@ router.get('/new', auth.requireLogin, (req, res, next) => {
     res.render('reviews/new', { userId: req.params.userId });
 });
 
-//review create
+//Review create
 router.post('/', auth.requireLogin, (req, res, next) => {
     let review = new Review(req.body);
-    review.tutorId = req.params.userId
+    review.tutorId = req.params.userId;
 
     review.save(function(err, review) {
       if(err) { console.error(err) };
@@ -24,31 +24,20 @@ router.post('/', auth.requireLogin, (req, res, next) => {
     });
   });
 
-// review show
   router.get('/', auth.requireLogin, (req, res, next) => {
-    Review.find({ tutorId: req.params.userId },  (err, reviews) => {
-    if (err) { console.error(err) };
-    res.render('reviews/show', { reviews: reviews });
-  }).sort({ createdAt: -1 });
+    Review.find( { tutorId: req.params.userId }, (err, reviews) =>{
+      if (reviews.length !== 0) {
+        let review = reviews[0].tutorId
+        User.findById( {_id: review }, (err, user) => {
+          //console.log(user)
+          if (err) { console.error(err)};
+        res.render('reviews/show', { reviews: reviews, user: user });
+      });
+      }
+      else {
+        res.render('reviews/show', { reviews: reviews });
+      }
+    });
   });
 
-// router.get('/', auth.requireLogin, (req, res, next) => {
-//   Review.find({ tutorId: req.params.userId },  (err, reviews) => {
-//   if (err) { console.error(err) };
-//   User.find({ tutorId: req.params.userId }, (err, user) =>{
-//     if (err) { console.error(err) };
-//   })
-//   res.render('reviews/show', { user: user, reviews: reviews });
-// }).sort({ createdAt: -1 });
-// })
-
-// router.get('/', auth.requireLogin, (req, res, next) => {
-//   User.findById({ tutorId: req.params.userId }, (err, user)  => {
-//     if (err) { console.error(err) };
-//     Review.find({ tutorId: req.params.userId },  (err, reviews) => {
-//     if (err) { console.error(err) };
-//     res.render('reviews/show', { user: user, reviews: reviews });
-//   }).sort({ createdAt: -1 });
-//   })
-// })
 module.exports = router;

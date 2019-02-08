@@ -8,7 +8,7 @@ $(document).ready(function() {
       $('.user-vote-up').submit(function (e) {
         e.preventDefault();
 
-        var userId = $(this).data('id');
+        let userId = $(this).data('id');
         // $.get('/path', {a:12, b:23}, function(data){})
         // $.post('/path', {a:12}, function(data){})
 
@@ -31,7 +31,7 @@ $(document).ready(function() {
       $('.user-vote-down').submit(function (e) {
         e.preventDefault();
 
-        var userId = $(this).data('id'); // data-id
+        let userId = $(this).data('id'); // data-id
         // $(this).attr('data-id')
 
         $.ajax({

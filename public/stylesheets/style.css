@@ -162,7 +162,7 @@ a {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
-    width: 80em;
+    width: 110%;
 
     opacity: 1;
     animation-name: fadeInOpacity;
@@ -189,7 +189,7 @@ a {
     padding: 10px 0;
     margin: 2%;
     height: 15em;
-    width: 50%;
+    width: 90%;
     text-align: center;
     color: white;
     display: flex;
@@ -205,10 +205,10 @@ a {
   border: 2px solid #7daeca;
   /* background-color: #7daeca; */
   background-image: radial-gradient(circle, #4b8cee, #669df0, #80aef2, #99bff3, #b3cff4);
-  padding: 10px 0;
+  padding: 5px 0;
   margin: 2%;
   height: 17em;
-  width: 25%;
+  width: 30%;
   text-align: center;
   color: white;
   display: flex;
@@ -278,7 +278,7 @@ header>h2 {
     align-items: center;
     background-color: rgba(231, 231, 243, 0.699);
     height: 55%;
-    width: 85%;
+    width: 100%;
     border-radius: 5px;
   }
 }
@@ -353,13 +353,30 @@ header>h2 {
 
 @media only screen and (max-width: 750px) {
   .show-profile {
-   margin-top: 80px;
-   margin-right: 15em;
+   margin-top: 10%;
+   /*margin-right: 15em;*/
    display: flex;
-   flex-direction: column;
-   justify-content: center;
-   height: 110%;
-   width: 75%;
+   flex-direction: row;
+   justify-content: flex-end;
+   height: 100%;
+   width: 100%;
+  }
+
+.show-image.gridCentered {
+    height: 280px;
+    width: 350px;
+    margin-left: 30px;
+  }
+
+  .label-test {
+    padding-top: 10px;
+    width:80%;
+    margin: auto;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
   }
 }
 

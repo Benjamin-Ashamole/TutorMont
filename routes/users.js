@@ -83,51 +83,51 @@ router.get('/new', function(req, res, next) {
 
 
 //Users create
-router.post('/', upload.single('imageUrl'), (req, res, next) => {
-  User.findOne({email: req.body.email}, (err, foundUser) => {
-    if (err) {console.error(err)};
-    if (foundUser){
-      return res.render('errors/email');
-    }
-    let user = new User(req.body);
-    console.log(user)
-     if (req.file) {
-       user.imageUrl = req.file.location;
-     }
-     if (req.body.isTutor === true) {
-      user.isTutor = true;
-    }
-     if (req.body.class !== "") {
-      user.class = classLister(req.body.class);
-     }
-     if (checkEmail(req.body.email) === false) {
-        return res.render('errors/edu')
-     }
-    user.save(function(err, user) {
-      if (err) { console.error(err) };
-      let token = new Token({ userId: user._id, token: crypto.randomBytes(16).toString('hex') });
-      token.save((err, token) => {
-        if(err) { console.error(err) };
-
-        let transporter = nodemailer.createTransport({ service: 'AOL', auth: { user: process.env.AOL_USERNAME, pass: process.env.AOL_PASSWORD } });
-         let mailOptions = { from: 'obinna0515@aol.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n Please verify your account by clicking the link:\nhttp:\/\/'+req.headers.host+'\/confirmation\/'+token.token+'.\n' };
-          transporter.sendMail(mailOptions, function (err) {
-            console.log(err)
-           if (err) {
-             const sendMail_error = new Error('Email was not sent');
-             sendMail.status = 500;
-             return next(sendMail_error);
-           }
-           // { return res.status(500).send({ msg: err.message }); }
-
-           else {
-             res.status(200).send('A verification email has been sent to ' + user.email + '.');
-           }
-      })
-    });
-  });
-});
-});
+// router.post('/', upload.single('imageUrl'), (req, res, next) => {
+//   User.findOne({email: req.body.email}, (err, foundUser) => {
+//     if (err) {console.error(err)};
+//     if (foundUser){
+//       return res.render('errors/email');
+//     }
+//     let user = new User(req.body);
+//     console.log(user)
+//      if (req.file) {
+//        user.imageUrl = req.file.location;
+//      }
+//      if (req.body.isTutor === true) {
+//       user.isTutor = true;
+//     }
+//      if (req.body.class !== "") {
+//       user.class = classLister(req.body.class);
+//      }
+//      if (checkEmail(req.body.email) === false) {
+//         return res.render('errors/edu')
+//      }
+//     user.save(function(err, user) {
+//       if (err) { console.error(err) };
+//       let token = new Token({ userId: user._id, token: crypto.randomBytes(16).toString('hex') });
+//       token.save((err, token) => {
+//         if(err) { console.error(err) };
+//
+//         let transporter = nodemailer.createTransport({ service: 'AOL', auth: { user: process.env.AOL_USERNAME, pass: process.env.AOL_PASSWORD } });
+//          let mailOptions = { from: 'obinna0515@aol.com', to: user.email, subject: 'Account Verification Token', text: 'Hello,\n\n Please verify your account by clicking the link:\nhttp:\/\/'+req.headers.host+'\/confirmation\/'+token.token+'.\n' };
+//           transporter.sendMail(mailOptions, function (err) {
+//             console.log(err)
+//            if (err) {
+//              const sendMail_error = new Error('Email was not sent');
+//              sendMail.status = 500;
+//              return next(sendMail_error);
+//            }
+//            // { return res.status(500).send({ msg: err.message }); }
+//
+//            else {
+//              res.status(200).send('A verification email has been sent to ' + user.email + '.');
+//            }
+//       })
+//     });
+//   });
+// });
+// });
 
 //User create old
 router.post('/', upload.single('imageUrl'), (req, res, next) => {
